@@ -11,7 +11,7 @@ public class Board extends AppCompatActivity {
     private int BoardWidth;
     private int ScreenWidth;
     private int ScreenHeight;
-    private Tile[][] BoardMatrix = new Tile[3][3];
+    private Tile[][] BoardMatrix = new Tile[4][4];
 
     public Board() {
 
@@ -26,13 +26,21 @@ public class Board extends AppCompatActivity {
 
         //Assigning Board Dimentions
         BoardWidth = ScreenWidth;
-        BoardHeight = (int) (ScreenHeight*0.75);
+        BoardHeight = ScreenWidth;
 
         //Initializing Board Matrix.
         for(int i=0;i<3;i++) {
             for(int j=0;j<3;j++) {
-                BoardMatrix[i][j] = new Tile();
+                //BoardMatrix[i][j] = new Tile();
             }
         }
+    }
+    public int getTileHeight() {
+        //Returns the Tile Height
+        return (int)(BoardHeight/3);
+    }
+    public int getTileWidth() {
+        //Returns the Tile Width
+        return (int)(BoardWidth/3);
     }
 }
