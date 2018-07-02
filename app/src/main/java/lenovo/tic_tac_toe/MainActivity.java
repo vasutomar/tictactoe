@@ -8,27 +8,16 @@ import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
+    public ImageView img;
     public Board board;
     public int chance = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        BoardView boardView = new BoardView(this);
-        setContentView(boardView);
-        Initialize_Board();
+        board = new Board(this);
+        setContentView(board);
         StartGame();
-    }
-    public void Initialize_Board() {
-
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-
-        board = new Board();
-
-        int x = board.getTileWidth();
-        int y = board.getTileHeight();
     }
     public void StartGame() {
 
