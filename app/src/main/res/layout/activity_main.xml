@@ -5,80 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
-    <ImageView
-        android:id="@+id/Block00"
-        android:layout_width="122dp"
-        android:layout_height="125dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="28dp"
-        android:src="@drawable/block" />
-
-    <ImageView
-        android:id="@+id/Block01"
-        android:layout_width="122dp"
-        android:layout_height="125dp"
-        android:layout_alignTop="@+id/Block00"
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="New Game"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/block" />
-
-    <ImageView
-        android:id="@+id/Block02"
-        android:layout_width="122dp"
-        android:layout_height="125dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/Block00"
-        android:src="@drawable/block" />
-
-    <ImageView
-        android:id="@+id/Block10"
-        android:layout_width="122dp"
-        android:layout_height="125dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="167dp"
-        android:src="@drawable/block" />
-
-    <ImageView
-        android:id="@+id/Block11"
-        android:layout_width="122dp"
-        android:layout_height="125dp"
-        android:layout_alignTop="@+id/Block10"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/block" />
-
-    <ImageView
-        android:id="@+id/Block12"
-        android:layout_width="122dp"
-        android:layout_height="125dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/Block10"
-        android:src="@drawable/block" />
-
-    <ImageView
-        android:id="@+id/Block20"
-        android:layout_width="122dp"
-        android:layout_height="125dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="83dp"
-        android:src="@drawable/block" />
-
-    <ImageView
-        android:id="@+id/Block21"
-        android:layout_width="122dp"
-        android:layout_height="125dp"
-        android:layout_alignTop="@+id/Block20"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/block" />
-
-    <ImageView
-        android:id="@+id/Block22"
-        android:layout_width="122dp"
-        android:layout_height="125dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/Block20"
-        android:src="@drawable/block" />
+        android:id="@+id/NewGameButton"
+        android:onClick="NewGame"/>
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Exit"
+        android:id="@+id/ExitButton"
+        android:layout_below="@id/NewGameButton"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
