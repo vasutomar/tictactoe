@@ -1,5 +1,6 @@
 package lenovo.tic_tac_toe;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -7,19 +8,20 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
-public class Board extends View {
+public class Board extends View{
 
     //Obtaining ScreenHeight and ScreenWidth
     public int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
     public int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 
     //Main Board Matrix
-    public int[][] matrix = new int[3][3];
+    public Tile[][] matrix = new Tile[3][3];
 
     //flag to check first click
     boolean flag = false;
@@ -39,15 +41,17 @@ public class Board extends View {
     //Application context
     Context ctx;
 
-    boolean won;
-    boolean dispwinner=false;
+    boolean won = false;
+    boolean dispwinner = false;
 
     //Matrix Coordinates.
     int matrixX;
     int matrixY;
 
-    public Board(Context context) {
+    //player who won
+    String playerWon;
 
+    public Board(Context context) {
         super(context);
 
         ctx = context;
@@ -71,7 +75,7 @@ public class Board extends View {
         //Initializing all matrix elements to 2 which mean no element at all
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
-                matrix[row][col] = 2;
+                matrix[row][col] = new Tile();
             }
         }
         turn = 0;
@@ -89,9 +93,6 @@ public class Board extends View {
         canvas.drawLine(screenWidth/3,0,screenWidth/3,screenWidth, paint);
         canvas.drawLine(2*(screenWidth/3),0,2*(screenWidth/3),screenWidth,paint);
 
-        //getting points for matrix
-
-
         //updating matrix
         if(flag==true && !won) {
             matrixX = (int)(clickedX/(screenWidth/3));
@@ -101,30 +102,45 @@ public class Board extends View {
         //Drawing Pieces
         for(i=0;i<3;i++) {
             for(j=0;j<3;j++) {
-                if(matrix[i][j]==0)
+                if(matrix[i][j].getPiece().equals("Player1"))
                     canvas.drawCircle(getDrawPoint(i),getDrawPoint(j),40,paint1);
-                else if(matrix[i][j]==1)
+                else if(matrix[i][j].getPiece().equals("Player2"))
                     canvas.drawCircle(getDrawPoint(i),getDrawPoint(j),40,paint2);
             }
         }
-        String y;
-        int x = won();
-        if(won == true && dispwinner == false) {
+        checkWonCondition();
+        if(won && dispwinner == false) {
+            String y;
             dispwinner = true;
-            if(x==0)
+            if(getPlayerWhoWon().equals("Player1"))
                 y="RED";
             else
                 y="GREEN";
             Toast.makeText(ctx,"Player "+y+" Won",Toast.LENGTH_SHORT).show();
         }
+        if(allfilled() && !won) {
+            Toast.makeText(ctx,"Tie",Toast.LENGTH_SHORT).show();
+        }
+    }
+    public String getPlayerWhoWon() {
+        return playerWon;
+    }
+    public boolean allfilled() {
+        for(int row = 0;row <3;row ++) {
+            for(int col = 0;col<3;col++) {
+                if(!matrix[row][col].isOccupied())
+                    return false;
+            }
+        }
+        return true;
     }
     public void updateMatrix(int i,int j) {
-        if(turn == 0 && matrix[i][j]==2) {
-            matrix[i][j] = turn;
+        if(turn == 0 && !matrix[i][j].isOccupied()) {
+            matrix[i][j].setDefinitePiece("Player1");
             turn = 1;
         }
-        else if(turn == 1 && matrix[i][j]==2) {
-            matrix[i][j] = turn;
+        else if(turn == 1 && !matrix[i][j].isOccupied()) {
+            matrix[i][j].setDefinitePiece("Player2");
             turn = 0;
         }
     }
@@ -146,26 +162,46 @@ public class Board extends View {
         }
         return true;
     }
-    public int won() {
-        if(matrix[0][0] == matrix[1][1] && matrix[2][2] == matrix[1][1] && matrix[0][0]!=2) {
+    public void checkWonCondition() {
+        if(matrix[0][0].getPiece().equals(matrix[1][1].getPiece()) &&
+                matrix[2][2].getPiece().equals(matrix[1][1].getPiece()) && matrix[0][0].isOccupied()) {
             won = true;
-            return matrix[0][0];
+            playerWon = matrix[0][0].getPiece();
         }
-        else if(matrix[0][2] == matrix[1][1] && matrix[1][1] == matrix [2][0] && matrix[0][2]!=2) {
-            won=true;
-            return matrix[1][1];
+        else if(matrix[0][2].getPiece().equals(matrix[1][1].getPiece()) &&
+                matrix[1][1].getPiece().equals(matrix[2][0].getPiece()) && matrix[0][2].isOccupied()) {
+            won = true;
+            playerWon = matrix[1][1].getPiece();
         }
-        for(int i=0;i<3;i++) {
-            if(matrix[i][0] == matrix[i][1] && matrix[i][1] == matrix[i][2] && matrix[i][0]!=2)
-                won = true;
-                return matrix[i][0];
+        else if(matrix[0][0].getPiece().equals(matrix[0][1].getPiece()) &&
+                matrix[0][1].getPiece().equals(matrix[0][2].getPiece()) && matrix[0][0].isOccupied()) {
+            won = true;
+            playerWon = matrix[0][0].getPiece();
         }
-        for(int i=0;i<3;i++) {
-            if(matrix[0][i] == matrix[1][i] && matrix[1][i] == matrix[2][i] && matrix[0][i]!=2)
-                won = true;
-                return matrix[0][i];
+        else if(matrix[1][0].getPiece().equals(matrix[1][1].getPiece()) &&
+                matrix[1][1].getPiece().equals(matrix[1][2].getPiece()) && matrix[1][0].isOccupied()) {
+            won = true;
+            playerWon = matrix[1][0].getPiece();
         }
-        won = false;
-        return 2;
+        else if(matrix[2][0].getPiece().equals(matrix[2][1].getPiece()) &&
+                matrix[2][1].getPiece().equals(matrix[2][2].getPiece()) && matrix[2][0].isOccupied()) {
+            won = true;
+            playerWon = matrix[2][0].getPiece();
+        }
+        else if(matrix[0][0].getPiece().equals(matrix[1][0].getPiece()) &&
+                matrix[1][0].getPiece().equals(matrix[2][0].getPiece()) && matrix[0][0].isOccupied()) {
+            won = true;
+            playerWon = matrix[0][0].getPiece();
+        }
+        else if(matrix[0][1].getPiece().equals(matrix[1][1].getPiece()) &&
+                matrix[1][1].getPiece().equals(matrix[2][1].getPiece()) && matrix[0][1].isOccupied()) {
+            won = true;
+            playerWon = matrix[0][1].getPiece();
+        }
+        else if(matrix[0][2].getPiece().equals(matrix[1][2].getPiece()) &&
+                matrix[1][2].getPiece().equals(matrix[2][2]) && matrix[0][2].isOccupied()) {
+            won = true;
+            playerWon = matrix[0][2].getPiece();
+        }
     }
 }

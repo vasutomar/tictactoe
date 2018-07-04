@@ -11,6 +11,9 @@ public class Tile extends AppCompatActivity {
         //Initialises the tile with null piece, equivalent to no piece at all.
         piece = new Piece("Null");
     }
+    public String getPiece() {
+        return piece.getForm();
+    }
     public void setDefinitePiece(String newForm) {
         //Sets Piece according to user turn.
         piece.changeForm(newForm);
