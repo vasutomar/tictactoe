@@ -1,13 +1,16 @@
 package lenovo.tic_tac_toe;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 public class Board extends View {
 
@@ -37,6 +40,7 @@ public class Board extends View {
     Context ctx;
 
     boolean won;
+    boolean dispwinner=false;
 
     //Matrix Coordinates.
     int matrixX;
@@ -74,6 +78,7 @@ public class Board extends View {
     }
     @Override
     protected void onDraw(Canvas canvas) {
+
         int i,j;
         super.onDraw(canvas);
 
@@ -88,7 +93,7 @@ public class Board extends View {
 
 
         //updating matrix
-        if(flag==true) {
+        if(flag==true && !won) {
             matrixX = (int)(clickedX/(screenWidth/3));
             matrixY = (int)(clickedY/(screenWidth/3));
             updateMatrix(matrixX, matrixY);
@@ -102,10 +107,15 @@ public class Board extends View {
                     canvas.drawCircle(getDrawPoint(i),getDrawPoint(j),40,paint2);
             }
         }
+        String y;
         int x = won();
-        if(won == true) {
-            Log.e("Won",String.valueOf(x));
-
+        if(won == true && dispwinner == false) {
+            dispwinner = true;
+            if(x==0)
+                y="RED";
+            else
+                y="GREEN";
+            Toast.makeText(ctx,"Player "+y+" Won",Toast.LENGTH_SHORT).show();
         }
     }
     public void updateMatrix(int i,int j) {

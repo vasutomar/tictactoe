@@ -21,4 +21,8 @@ public class MainActivity extends AppCompatActivity {
         board = new Board(this);
         setContentView(board);
     }
+    public void ExitApp(View v) {
+        finishAffinity();
+        System.exit(0);
+    }
 }

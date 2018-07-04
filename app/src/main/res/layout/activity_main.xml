@@ -4,21 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/baaack"
     tools:context=".MainActivity">
     <Button
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="New Game"
-        android:layout_centerVertical="true"
+        android:layout_above="@id/ExitButton"
         android:layout_centerHorizontal="true"
         android:id="@+id/NewGameButton"
+        android:layout_margin="5sp"
+        android:background="@drawable/roundedbutton"
         android:onClick="NewGame"/>
     <Button
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:background="@drawable/roundedbutton"
         android:text="Exit"
+        android:onClick="ExitApp"
         android:id="@+id/ExitButton"
-        android:layout_below="@id/NewGameButton"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50sp"/>
 
 </RelativeLayout>
