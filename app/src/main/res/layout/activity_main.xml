@@ -4,9 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/baaack"
+    android:background="@drawable/a"
     tools:context=".MainActivity">
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Player1"
+        android:hint="Player1"
+        android:background="@android:drawable/editbox_background"
+        android:layout_above="@+id/Player2"
+        android:textColor="@android:color/holo_red_light"
+        android:textStyle="bold"
+        android:textColorHint="@android:color/holo_red_light"
+        android:layout_centerHorizontal="true"/>
+    <EditText
+        android:textColorHint="@android:color/holo_green_light"
+        android:layout_width="wrap_content"
+        android:textColor="@android:color/holo_green_light"
+        android:layout_height="wrap_content"
+        android:id="@+id/Player2"
+        android:textStyle="bold"
+        android:background="@android:drawable/editbox_background"
+        android:layout_above="@+id/NewGameButton"
+        android:layout_centerHorizontal="true"
+        android:hint="Player2"/>
     <Button
+        android:paddingRight="20sp"
+        android:paddingLeft="20sp"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="New Game"
@@ -18,6 +42,8 @@
         android:onClick="NewGame"/>
     <Button
         android:layout_height="wrap_content"
+        android:paddingLeft="35sp"
+        android:paddingRight="35sp"
         android:layout_width="wrap_content"
         android:background="@drawable/roundedbutton"
         android:text="Exit"

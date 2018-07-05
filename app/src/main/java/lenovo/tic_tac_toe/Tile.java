@@ -11,6 +11,7 @@ public class Tile extends AppCompatActivity {
         //Initialises the tile with null piece, equivalent to no piece at all.
         piece = new Piece("Null");
     }
+    //returns the piece on the tile
     public String getPiece() {
         return piece.getForm();
     }

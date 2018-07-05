@@ -7,9 +7,11 @@ public class Piece extends AppCompatActivity {
     public Piece(String form) {
         type = form;
     }
+    //changes piece's form
     public void changeForm(String form) {
         type = form;
     }
+    //returns piece's form
     public String getForm() {
         return type;
     }
