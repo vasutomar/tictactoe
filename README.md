@@ -1,6 +1,9 @@
 # tictactoe
 Tic-Tac-Toe game implementation in Android.
 
+# Download
+https://github.com/vasutomar/tictactoe/blob/master/TicTacToe.apk
+
 # Screenshots
 
 ![alt text](https://github.com/vasutomar/tictactoe/blob/master/Screenshots/MainMenu.png "Game startup" )
