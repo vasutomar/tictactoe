@@ -9,7 +9,6 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Board board;
     private EditText player1;
     private EditText player2;
 
@@ -24,23 +23,25 @@ public class MainActivity extends AppCompatActivity {
     }
     //OnClick method for a new game.
     public void NewGame(View v) {
-
-        board = new Board(this,player1.getText().toString(),player2.getText().toString());
-        Drawable drawable = getDrawable(R.drawable.b);
-        board.setBackground(drawable);
-        setContentView(board);
+        Intent k = new Intent(this,GameActivity.class);
+        k.putExtra("Player1",player1.getText().toString());
+        k.putExtra("Player2",player2.getText().toString());
+        startActivity(k);
+        System.out.println("Passed");
     }
     //OnClick method for exiting the application
     public void ExitApp(View v) {
         finishAffinity();
         System.exit(0);
     }
-    //onbackPressed resets the game.
+    //onbackPressed exits the game.
     @Override
     public void onBackPressed() {
-        Intent i = getBaseContext().getPackageManager()
-                .getLaunchIntentForPackage( getBaseContext().getPackageName() );
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        finishAffinity();
+        System.exit(0);
+    }
+    public void RulesView(View v) {
+        Intent i = new Intent(this,RulesActivity.class);
         startActivity(i);
     }
 }

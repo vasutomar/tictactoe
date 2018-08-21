@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">tic-tac-toe</string>
+    <string name="RulesParagraph">
+        Rules are as follows-\n
+            -Two Players move in a turn wise manner.\n
+            -This is a weird Tic Tac Toe \n
+            -So there is a 50% chance that your piece
+            will appear on your turn.\n
+            -With a twist of luck and some strategy
+            try to win in the most played backbencher game of all time
+    </string>
+    <string name="title_activity_game">GameActivity</string>
 </resources>
