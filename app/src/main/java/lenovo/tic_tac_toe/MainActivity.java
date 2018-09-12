@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         k.putExtra("Player1",player1.getText().toString());
         k.putExtra("Player2",player2.getText().toString());
         startActivity(k);
-        System.out.println("Passed");
     }
     //OnClick method for exiting the application
     public void ExitApp(View v) {

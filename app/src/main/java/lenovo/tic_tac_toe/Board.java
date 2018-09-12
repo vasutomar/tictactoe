@@ -8,7 +8,6 @@ import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,8 +16,8 @@ import java.util.Random;
 
 public class Board extends AppCompatActivity {
 
-    public Board_View boardView;
 
+    public Board_View boardView;
     Board(Context ctx,String player1,String player2) {
         boardView = new Board_View(ctx,player1,player2);
     }
@@ -36,7 +35,7 @@ public class Board extends AppCompatActivity {
         public Tile[][] matrix = new Tile[3][3];
 
         //flag to check first click
-        boolean flag = false;
+        boolean flag;
 
         //Clicked Points
         float clickedX;
@@ -56,8 +55,8 @@ public class Board extends AppCompatActivity {
         //Application context
         Context ctx;
 
-        boolean won = false;
-        boolean dispwinner = false;
+        public boolean won;
+        boolean dispwinner;
 
         //Matrix Coordinates.
         int matrixX;
@@ -69,9 +68,8 @@ public class Board extends AppCompatActivity {
         //Constructor
         Board_View(Context context, String player1, String player2) {
             super(context);
-
+            won = false;
             ctx = context;
-
             end_flag = 0;
 
             this.player1 = player1;
@@ -104,6 +102,11 @@ public class Board extends AppCompatActivity {
                 }
             }
             turn = 0;
+            flag = false;
+            won = false;
+            end_flag = 0;
+            dispwinner = false;
+            invalidate();
         }
 
         @Override
@@ -136,7 +139,7 @@ public class Board extends AppCompatActivity {
                 }
             }
             checkWonCondition();
-            if (won && dispwinner == false) {
+            if (won && !dispwinner) {
                 String y;
                 dispwinner = true;
                 if (getPlayerWhoWon().equals("Player1")) {
@@ -153,15 +156,42 @@ public class Board extends AppCompatActivity {
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(ctx);
                 builder1.setTitle("Game Over");
                 builder1.setMessage(y + " Won");
+                builder1.setCancelable(false);
+                builder1.setPositiveButton("Play again", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        init();
+                    }
+                });
+                builder1.setNegativeButton("Main Menu", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
                 AlertDialog alert11 = builder1.create();
+                alert11.setCancelable(false);
                 alert11.show();
             }
             if (allfilled() && !won) {
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(ctx);
                 builder1.setMessage("Tie");
-                builder1.setCancelable(true);
+                builder1.setCancelable(false);
+                builder1.setPositiveButton("Play again", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        init();
+                    }
+                });
+                builder1.setNegativeButton("Main Menu", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
                 AlertDialog alert11 = builder1.create();
                 alert11.show();
+                alert11.setCancelable(false);
                 end_flag = 1;
             }
         }
